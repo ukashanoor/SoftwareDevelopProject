@@ -7,7 +7,7 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import EditOutLinedIcon from "@mui/icons-material/EditOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -16,18 +16,19 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
-const registerScheme = yup.object().shape({
+const registerSchema = yup.object().shape({
     firstName: yup.string().required("required"),
     lastName: yup.string().required("required"),
     email: yup.string().email("invalid email").required("required"),
-    Password: yup.string().required("required"),
+    password: yup.string().required("required"),
+location: yup.string().required("required"),
     occupation: yup.string().required("required"),
     picture: yup.string().required("required"),
 });
 
 const loginSchema = yup.object().shape({
     email: yup.string().email("invalid email").required("required"),
-    Password: yup.string().required("required"),
+    password: yup.string().required("required"),
 });
 
 const initialValuesRegister = {
@@ -35,14 +36,15 @@ const initialValuesRegister = {
     lastName: "",
     email: "",
     password: "",
+    location:"",
     occupation: "",
     picture: "",
-}
+};
 
 const initialValuesLogin = {
     email: "",
-    Password: "",
-}
+    password: "",
+};
 
 const Form = () => {
     const [pageType, setPageType] = useState("login");
@@ -53,16 +55,16 @@ const Form = () => {
     const isLogin = pageType === "login";
     const isRegister = pageType === "register";
 
-    const register = async(values,onSubmitProps) =>{
+    const register = async(values,onSubmitProps) => {
         // this allows us to send form info with image
         const formData = new FormData();
         for(let value in values){
-            formData.append(value, values[value])
+            formData.append(value, values[value]);
         }
         formData.append('picturePath', values.picture.name);
 
         const savedUserResponse = await fetch(
-            "http;//localhost:3001/auth/register",
+            "http://localhost:3001/auth/register",
             {
                 method:"POST",
                 body: formData,
@@ -78,15 +80,15 @@ const Form = () => {
     };
 
     const login = async(values, onSubmitProps) =>{
-        const loggedInUserResponse = await fetch(
-            "http;//localhost:3001/auth/login",
+        const loggedInResponse = await fetch(
+            "http://localhost:3001/auth/login",
             {
                 method:"POST",
                 headers:{ "Content-Type": "application/json"},
                 body: JSON.stringify(values),
             }
         );
-        const loggedIn = await loggedInUserResponse.json();
+        const loggedIn = await loggedInResponse.json();
         onSubmitProps.resetForm();
         if(loggedIn){
             dispatch(
@@ -97,7 +99,7 @@ const Form = () => {
             );
             navigate("/home");
         }
-    }
+    };
 
 
     const handleFormSubmit = async (values, onSubmitProps) => { 
@@ -109,7 +111,7 @@ const Form = () => {
         <Formik
             onSubmit={handleFormSubmit}
             initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
-            validationSchema={isLogin ? loginSchema : registerScheme}
+            validationSchema={isLogin ? loginSchema : registerSchema}
         >
             {({
                 values,
@@ -159,7 +161,7 @@ const Form = () => {
                                     name="location"
                                     error={Boolean(touched.location) && Boolean(errors.location)}
                                     helperText={touched.location && errors.location}
-                                    sx={{ gridColumn: "span 2" }}
+                                    sx={{ gridColumn: "span 4" }}
                                 />
                                 <TextField
                                     label="Occupation"
@@ -169,7 +171,7 @@ const Form = () => {
                                     name="occupation"
                                     error={Boolean(touched.occupation) && Boolean(errors.occupation)}
                                     helperText={touched.occupation && errors.occupation}
-                                    sx={{ gridColumn: "span 2" }}
+                                    sx={{ gridColumn: "span 4" }}
                                 />
                                 <Box
                                     gridColumn="span 4"
@@ -197,7 +199,7 @@ const Form = () => {
                                                 ) : (
                                                     <FlexBetween>
                                                         <Typography>{values.picture.name}</Typography>
-                                                        <EditOutLinedIcon />
+                                                        <EditOutlinedIcon />
                                                     </FlexBetween>
                                                 )}
                                             </Box>
@@ -228,6 +230,7 @@ const Form = () => {
                             helperText={touched.password && errors.password}
                             sx={{ gridColumn: "span 4" }}
                         />
+			</Box>
                         {/* Buttons */}
                         <Box>
                             <Button
@@ -261,12 +264,12 @@ const Form = () => {
                                 : "Already have an account? Login here."}
                             </Typography>
                         </Box>
-                    </Box>
+                   
                 </form>
             )}
         </Formik>
 
-    )
-}
+    );
+};
 
 export default Form;
