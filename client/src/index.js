@@ -32,9 +32,9 @@ const store = configureStore({
           PURGE,
           REGISTER
         ]
-      }
-    })
-})
+      },
+    }),
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

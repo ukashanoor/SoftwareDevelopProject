@@ -1,11 +1,11 @@
-import {Box, Typography, useMediaQuery, useTheme, userMediaQuery} from "@mui/material";
+import {Box, Typography, useTheme, useMediaQuery} from "@mui/material";
 import Form from "./Form";
 
 const LoginPage =() =>{
     const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px");
     return(<Box>
-        <Box width="100%" backgroundColor={theme.palette.background.alt} p="1rem"> 
+        <Box width="100%" backgroundColor={theme.palette.background.alt} p="1rem 6%" textALign="center"> 
             <Typography
                 fontWeight="bold"
                 fontSize="32px"
@@ -28,7 +28,7 @@ const LoginPage =() =>{
 
             </Form>
         </Box>
-    </Box>)
+    </Box>);
     
 };
 
