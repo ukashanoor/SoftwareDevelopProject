@@ -55,7 +55,7 @@ const Navbar = () => {
             },
           }}
         >
-          Sociopedia
+          Nabula
         </Typography>
       </FlexBetween>
 
