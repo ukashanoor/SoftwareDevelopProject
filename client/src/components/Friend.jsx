@@ -20,6 +20,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const medium = palette.neutral.medium;
 
   const isFriend = friends.find((friend) => friend._id === friendId);
+  const checkId = (_id === friendId);
 
   const patchFriend = async () => {
     const response = await fetch(
@@ -64,16 +65,28 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      <IconButton
-        onClick={() => patchFriend()}
-        sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
-      >
-        {isFriend ? (
+      {isFriend ? (
+        <IconButton
+          onClick={() => patchFriend()}
+          sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
+        >
           <PersonRemoveOutlined sx={{ color: primaryDark }} />
+        </IconButton>
+      ) : (
+        checkId ? (
+          null
         ) : (
-          <PersonAddOutlined sx={{ color: primaryDark }} />
-        )}
-      </IconButton>
+          <IconButton
+            onClick={() => patchFriend()}
+            sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
+          >
+
+            <PersonAddOutlined sx={{ color: primaryDark }} />
+          </IconButton>
+        )
+
+      )}
+
     </FlexBetween>
   );
 };
