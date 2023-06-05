@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const postSchema = new mongoose.Schema(
+const postSchema = mongoose.Schema(
   {
     userId: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     firstName: {
       type: String,
@@ -19,16 +19,17 @@ const postSchema = new mongoose.Schema(
     picturePath: String,
     userPicturePath: String,
     likes: {
-        type: Map,
-        of: Boolean
+      type: Map,
+      of: Boolean,
     },
     comments: {
-        type: Array,
-        default: []
-    }
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );
 
 const Post = mongoose.model("Post", postSchema);
+
 export default Post;
