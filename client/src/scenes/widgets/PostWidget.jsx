@@ -11,6 +11,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
+import CommentEditor from '../../components/CommentEditor';
 
 const PostWidget = ({
   postId,
@@ -97,12 +98,15 @@ const PostWidget = ({
           {comments.map((comment, i) => (
             <Box key={`${name}-${i}`}>
               <Divider />
+              
               <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
+                <div dangerouslySetInnerHTML={{ __html: comment }} />
               </Typography>
+              
             </Box>
           ))}
           <Divider />
+          <CommentEditor postId={postId} />
         </Box>
       )}
     </WidgetWrapper>
