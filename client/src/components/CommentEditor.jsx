@@ -3,21 +3,26 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
+import FlexBetween from "components/FlexBetween";
+import { useTheme, Button } from "@mui/material";
 
 const CommentEditor = ({postId}) => {
   const [comment, setComment] = useState('');
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
+  const { palette } = useTheme();
 
   const handleChange = (value) => {
     setComment(value);
   };
 
   const handleSubmit = () => {
-    // Perform submission logic here
-    patchComment(comment);
-    // Reset comment state
-    setComment('');
+    if (comment.trim() !== '') {
+      // Perform submission logic here
+      patchComment(comment);
+      // Reset comment state
+      setComment('');
+    }
   };
 
   const patchComment = async (comment) => {
@@ -39,7 +44,14 @@ const CommentEditor = ({postId}) => {
         value={comment}
         onChange={handleChange}
       />
-      <button onClick={handleSubmit}>Submit</button>
+      <Button sx={{
+            color: palette.background.alt,
+            backgroundColor: palette.primary.main,
+            borderRadius: "3rem",
+            marginTop: "10px"
+          }} 
+          onClick={handleSubmit}>Submit
+      </Button>
     </div>
   );
 };
