@@ -7,6 +7,9 @@ const AdvertWidget = () => {
   const dark = palette.neutral.dark;
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
+  
+  // Generate a random number between 1 and 5
+  const randomNumber = Math.floor(Math.random() * 5) + 1;
 
   return (
     <WidgetWrapper>
@@ -20,7 +23,7 @@ const AdvertWidget = () => {
         width="100%"
         height="auto"
         alt="advert"
-        src="http://localhost:3001/assets/info4.jpeg"
+        src={`http://localhost:3001/assets/info${randomNumber}.jpeg`}
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
       <FlexBetween>

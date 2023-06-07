@@ -27,6 +27,18 @@ export const colorTokens = {
     800: "#00353F",
     900: "#001519",
   },
+  green:{
+    0:"#D1D7D2",
+    5:"#19381F",
+
+  },
+  yellow:{
+
+    10:"#FABE12",
+    15:"#FABE12",
+    20:"#FABE12",
+
+  }
 };
 
 // mui theme settings
@@ -38,9 +50,13 @@ export const themeSettings = (mode) => {
         ? {
             // palette values for dark mode
             primary: {
-              dark: colorTokens.primary[200],
-              main: colorTokens.primary[500],
-              light: colorTokens.primary[800],
+              dark: colorTokens.green[5],
+              main: colorTokens.yellow[20],
+              light: colorTokens.yellow[10],
+
+              // dark: colorTokens.primary[200],
+              // main: colorTokens.primary[500],
+              // light: colorTokens.primary[800],
             },
             neutral: {
               dark: colorTokens.grey[100],
@@ -53,13 +69,23 @@ export const themeSettings = (mode) => {
               default: colorTokens.grey[900],
               alt: colorTokens.grey[800],
             },
+            navbar: {
+              default: colorTokens.grey[900],
+              alt: colorTokens.grey[800],
+            },
+
           }
         : {
             // palette values for light mode
             primary: {
-              dark: colorTokens.primary[700],
-              main: colorTokens.primary[500],
-              light: colorTokens.primary[50],
+              dark: colorTokens.green[5],
+              main: colorTokens.yellow[20],
+              light: colorTokens.yellow[10],
+
+              // dark: colorTokens.primary[700],
+              // main: colorTokens.primary[500],
+              // light: colorTokens.primary[50],
+              
             },
             neutral: {
               dark: colorTokens.grey[700],
@@ -69,8 +95,22 @@ export const themeSettings = (mode) => {
               light: colorTokens.grey[50],
             },
             background: {
+              // default: colorTokens.grey[10],
+              // alt: colorTokens.grey[0],
+
+              // default: colorTokens.green[2],
+              // alt: colorTokens.grey[0],
+
+              default: colorTokens.green[0],
+              alt: colorTokens.grey[10],
+            },
+            navbar: {
+
               default: colorTokens.grey[10],
-              alt: colorTokens.grey[0],
+              alt: colorTokens.green[5],
+
+              // default: colorTokens.green[5],
+              // alt: colorTokens.green[5],
             },
           }),
     },
