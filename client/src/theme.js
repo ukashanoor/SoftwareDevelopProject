@@ -27,6 +27,18 @@ export const colorTokens = {
     800: "#00353F",
     900: "#001519",
   },
+  green:{
+    2:"#E7E9E6",
+    5:"#5B7152",
+
+  },
+  yellow:{
+    5:"#FAEFD8",
+    10:"#FED663",
+    15:"#FFC92E",
+    20:"#FABE12",
+
+  }
 };
 
 // mui theme settings
@@ -41,6 +53,10 @@ export const themeSettings = (mode) => {
               dark: colorTokens.primary[200],
               main: colorTokens.primary[500],
               light: colorTokens.primary[800],
+
+              // dark: colorTokens.primary[200],
+              // main: colorTokens.primary[500],
+              // light: colorTokens.primary[800],
             },
             neutral: {
               dark: colorTokens.grey[100],
@@ -53,13 +69,23 @@ export const themeSettings = (mode) => {
               default: colorTokens.grey[900],
               alt: colorTokens.grey[800],
             },
+            navbar: {
+              default: colorTokens.grey[900],
+              alt: colorTokens.grey[800],
+            },
+
           }
         : {
             // palette values for light mode
             primary: {
-              dark: colorTokens.primary[700],
-              main: colorTokens.primary[500],
-              light: colorTokens.primary[50],
+              dark: colorTokens.green[5],
+              main: colorTokens.yellow[20],
+              light: colorTokens.yellow[10],
+
+              // dark: colorTokens.primary[700],
+              // main: colorTokens.primary[500],
+              // light: colorTokens.primary[50],
+              
             },
             neutral: {
               dark: colorTokens.grey[700],
@@ -69,8 +95,15 @@ export const themeSettings = (mode) => {
               light: colorTokens.grey[50],
             },
             background: {
-              default: colorTokens.grey[10],
+              // default: colorTokens.grey[10],
+
+              default: colorTokens.green[2],
               alt: colorTokens.grey[0],
+             
+            },
+            navbar: {
+              default: colorTokens.green[5],
+              alt: colorTokens.green[5],
             },
           }),
     },

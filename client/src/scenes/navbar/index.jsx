@@ -34,14 +34,17 @@ const Navbar = () => {
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
-  const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
-  const alt = theme.palette.background.alt;
+  const navbarColorDefault = theme.palette.navbar.default;
+  const navbarColor = theme.palette.navbar.alt;
+
+  // const background = theme.palette.background.default;
+  // const alt = theme.palette.background.alt;
 
   const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
-    <FlexBetween padding="1rem 6%" backgroundColor={alt}>
+    <FlexBetween padding="1rem 6%" backgroundColor={navbarColor}>
       <FlexBetween gap="1.75rem">
         <Typography
           fontWeight="bold"
@@ -115,7 +118,7 @@ const Navbar = () => {
           zIndex="10"
           maxWidth="500px"
           minWidth="300px"
-          backgroundColor={background}
+          backgroundColor={navbarColorDefault}
         >
           {/* CLOSE ICON */}
           <Box display="flex" justifyContent="flex-end" p="1rem">
