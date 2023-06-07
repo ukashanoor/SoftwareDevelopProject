@@ -28,14 +28,14 @@ export const colorTokens = {
     900: "#001519",
   },
   green:{
-    2:"#E7E9E6",
-    5:"#5B7152",
+    0:"#D1D7D2",
+    5:"#19381F",
 
   },
   yellow:{
-    5:"#FAEFD8",
-    10:"#FED663",
-    15:"#FFC92E",
+
+    10:"#FABE12",
+    15:"#FABE12",
     20:"#FABE12",
 
   }
@@ -50,9 +50,9 @@ export const themeSettings = (mode) => {
         ? {
             // palette values for dark mode
             primary: {
-              dark: colorTokens.primary[200],
-              main: colorTokens.primary[500],
-              light: colorTokens.primary[800],
+              dark: colorTokens.green[5],
+              main: colorTokens.yellow[20],
+              light: colorTokens.yellow[10],
 
               // dark: colorTokens.primary[200],
               // main: colorTokens.primary[500],
@@ -96,14 +96,21 @@ export const themeSettings = (mode) => {
             },
             background: {
               // default: colorTokens.grey[10],
+              // alt: colorTokens.grey[0],
 
-              default: colorTokens.green[2],
-              alt: colorTokens.grey[0],
-             
+              // default: colorTokens.green[2],
+              // alt: colorTokens.grey[0],
+
+              default: colorTokens.green[0],
+              alt: colorTokens.grey[10],
             },
             navbar: {
-              default: colorTokens.green[5],
+
+              default: colorTokens.grey[10],
               alt: colorTokens.green[5],
+
+              // default: colorTokens.green[5],
+              // alt: colorTokens.green[5],
             },
           }),
     },

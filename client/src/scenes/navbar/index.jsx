@@ -34,6 +34,7 @@ const Navbar = () => {
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
+  const light = theme.palette.neutral.main;
   const primaryLight = theme.palette.primary.light;
   const navbarColorDefault = theme.palette.navbar.default;
   const navbarColor = theme.palette.navbar.alt;
@@ -58,7 +59,7 @@ const Navbar = () => {
             },
           }}
         >
-          Nabula
+          DonateHope
         </Typography>
       </FlexBetween>
 
@@ -67,14 +68,14 @@ const Navbar = () => {
         <FlexBetween gap="2rem">
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
-              <DarkMode sx={{ fontSize: "25px" }} />
+              <DarkMode color="primary" sx={{ fontSize: "25px" }} />
             ) : (
-              <LightMode sx={{ color: dark, fontSize: "25px" }} />
+              <LightMode color="primary" sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <Message sx={{ fontSize: "25px" }} />
-          <Notifications sx={{ fontSize: "25px" }} />
-          <Help sx={{ fontSize: "25px" }} />
+          <Message color="primary" sx={{ fontSize: "25px" }} />
+          <Notifications color="primary" sx={{ fontSize: "25px" }} />
+          <Help color="primary" sx={{ fontSize: "25px" }} />
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
@@ -142,14 +143,14 @@ const Navbar = () => {
               sx={{ fontSize: "25px" }}
             >
               {theme.palette.mode === "dark" ? (
-                <DarkMode sx={{ fontSize: "25px" }} />
+                <DarkMode color="primary" sx={{ fontSize: "25px" }} />
               ) : (
-                <LightMode sx={{ color: dark, fontSize: "25px" }} />
+                <LightMode color="primary" sx={{ color: light, fontSize: "25px" }} />
               )}
             </IconButton>
-            <Message sx={{ fontSize: "25px" }} />
-            <Notifications sx={{ fontSize: "25px" }} />
-            <Help sx={{ fontSize: "25px" }} />
+            <Message color="primary" sx={{ fontSize: "25px" }} />
+            <Notifications color="primary" sx={{ fontSize: "25px" }} />
+            <Help color="primary" sx={{ fontSize: "25px" }} />
             <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}
