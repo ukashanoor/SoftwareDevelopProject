@@ -1,31 +1,20 @@
 import mongoose from "mongoose";
 
-const eventSchema = mongoose.Schema(
+const donationSchema = mongoose.Schema(
   {
     userId: {
       type: String,
       required: true,
     },
-    eventName: {
+    donorFullName: {
       type: String,
       required: true,
     },
-    eventLocation: {
+    donorLocation: {
         type: String,
         required: true,
     },
-    eventDate: {
-        type: Date,
-        required: true
-    },
-    eventDescription: {
-      type: String
-    },
-    organizerName: {
-        type: String,
-        required: true
-    },
-    organizerPhone: {
+    donorEmail: {
         type: String,
         required: true
     },
@@ -37,13 +26,16 @@ const eventSchema = mongoose.Schema(
         type: String,
         required: true
     },
-    volunteerOpportunity: String,
-    supplies: String,
-    paymentMethod: String
+    donationDescription: String,
+    pickupRequired: Boolean,
+    pickupDate: {
+        type: Date
+    },
+    additionalDetails: String
   },
   { timestamps: true }
 );
 
-const Event = mongoose.model("Event", eventSchema);
+const Event = mongoose.model("Event", postSchema);
 
 export default Event;
