@@ -24,14 +24,19 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
+import AudioPlayer from 'components/AudioPlayer';
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
+  
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
 
   const [isAttachment, setIsAttachment] = useState(false);
   const [attachment, setAttachment] = useState(null);
+
+  const [isAudio, setIsAudio] = useState(false);
+  const [audio, setAudio] = useState(null);
 
   const [post, setPost] = useState("");
   const { palette } = useTheme();
@@ -52,6 +57,10 @@ const MyPostWidget = ({ picturePath }) => {
     if (attachment) {
       formData.append("file", attachment);
       formData.append("filePath", attachment.name);
+    }
+    if (audio) {
+      formData.append("file", audio);
+      formData.append("filePath", audio.name);
     }
 
 
@@ -83,6 +92,8 @@ const MyPostWidget = ({ picturePath }) => {
           }}
         />
       </FlexBetween>
+
+      {/*Image dropzone*/}
       {isImage && (
         <Box
           border={`1px solid ${medium}`}
@@ -127,50 +138,96 @@ const MyPostWidget = ({ picturePath }) => {
           </Dropzone>
         </Box>
       )}
-                {isAttachment && (
-              <Box
-                border={`1px solid ${medium}`}
-                borderRadius="5px"
-                mt="1rem"
-                p="1rem"
-              >
-                <Dropzone
-                  acceptedFiles=".pdf,.xml,.xlsx,.ppt"
-                  multiple={false}
-                  onDrop={(acceptedFiles) => setAttachment(acceptedFiles[0])}
+      {/*Attachment dropzone*/}
+      {isAttachment && (
+        <Box
+          border={`1px solid ${medium}`}
+          borderRadius="5px"
+          mt="1rem"
+          p="1rem"
+        >
+          <Dropzone
+            acceptedFiles=".pdf,.xml,.xlsx,.ppt"
+            multiple={false}
+            onDrop={(acceptedFiles) => setAttachment(acceptedFiles[0])}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <FlexBetween>
+                <Box
+                  {...getRootProps()}
+                  border={`2px dashed ${palette.primary.main}`}
+                  p="1rem"
+                  width="100%"
+                  sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  {({ getRootProps, getInputProps }) => (
+                  <input {...getInputProps()} />
+                  {!attachment ? (
+                    <p>Add Attachment Here</p>
+                  ) : (
                     <FlexBetween>
-                      <Box
-                        {...getRootProps()}
-                        border={`2px dashed ${palette.primary.main}`}
-                        p="1rem"
-                        width="100%"
-                        sx={{ "&:hover": { cursor: "pointer" } }}
-                      >
-                        <input {...getInputProps()} />
-                        {!attachment ? (
-                          <p>Add Attachment Here</p>
-                        ) : (
-                          <FlexBetween>
-                            <Typography>{attachment.name}</Typography>
-                            <EditOutlined />
-                          </FlexBetween>
-                        )}
-                      </Box>
-                      {attachment && (
-                        <IconButton
-                          onClick={() => setAttachment(null)}
-                          sx={{ width: "15%" }}
-                        >
-                          <DeleteOutlined />
-                        </IconButton>
-                      )}
+                      <Typography>{attachment.name}</Typography>
+                      <EditOutlined />
                     </FlexBetween>
                   )}
-                </Dropzone>
-              </Box>
+                </Box>
+                {attachment && (
+                  <IconButton
+                    onClick={() => setAttachment(null)}
+                    sx={{ width: "15%" }}
+                  >
+                    <DeleteOutlined />
+                  </IconButton>
+                )}
+              </FlexBetween>
             )}
+          </Dropzone>
+        </Box>
+      )}
+      {isAudio && (
+        <Box
+          border={`1px solid ${medium}`}
+          borderRadius="5px"
+          mt="1rem"
+          p="1rem"
+        >
+          {/*Audio dropzone*/}
+          <Dropzone
+            acceptedFiles=".mp3"
+            multiple={false}
+            onDrop={(acceptedFiles) => setAudio(acceptedFiles[0])}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <FlexBetween>
+                <Box
+                  {...getRootProps()}
+                  border={`2px dashed ${palette.primary.main}`}
+                  p="1rem"
+                  width="100%"
+                  sx={{ "&:hover": { cursor: "pointer" } }}
+                >
+                  <input {...getInputProps()} />
+                  {!audio ? (
+                    <p>Add Audio Here</p>
+                  ) : (
+                    <FlexBetween>
+                      <Typography>{audio.name}</Typography>
+                      <EditOutlined />
+                    </FlexBetween>
+                  )}
+                </Box>
+                {audio && (
+                  <IconButton
+                    onClick={() => setAudio(null)}
+                    sx={{ width: "15%" }}
+                  >
+                    <DeleteOutlined />
+                  </IconButton>
+                )}
+              </FlexBetween>
+            )}
+          </Dropzone>
+        </Box>
+      )}
 
       <Divider sx={{ margin: "1.25rem 0" }} />
 
@@ -184,6 +241,7 @@ const MyPostWidget = ({ picturePath }) => {
             Image
           </Typography>
         </FlexBetween>
+
 
         {isNonMobileScreens ? (
           <>
@@ -200,9 +258,10 @@ const MyPostWidget = ({ picturePath }) => {
               >Attachment</Typography>
             </FlexBetween>
 
-            <FlexBetween gap="0.25rem">
+            <FlexBetween gap="0.25rem" onClick={() => setIsAudio(!isAudio)}>
               <MicOutlined sx={{ color: mediumMain }} />
-              <Typography color={mediumMain}>Audio</Typography>
+              <Typography color={mediumMain}
+                sx={{ "&:hover": { cursor: "pointer", color: medium } }}>Audio</Typography>
             </FlexBetween>
           </>
         ) : (

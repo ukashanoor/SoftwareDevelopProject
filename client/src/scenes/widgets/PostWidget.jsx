@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 import CommentEditor from '../../components/CommentEditor';
+import AudioPlayer from 'components/AudioPlayer';
 
 const PostWidget = ({
   postId,
@@ -20,6 +21,8 @@ const PostWidget = ({
   description,
   location,
   picturePath,
+  audioPath, // add audioPath in backend
+  attachmentPath, // add attachmentPath in backend
   userPicturePath,
   likes,
   comments,
@@ -30,6 +33,8 @@ const PostWidget = ({
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
+  const [isAudio, setIsAudio] = useState(false);
+  const [audio, setAudio] = useState(null);
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
@@ -68,6 +73,20 @@ const PostWidget = ({
           src={`http://localhost:3001/assets/${picturePath}`}
         />
       )}
+      
+      {/*Fix*/}
+       {audioPath &&
+      (<AudioPlayer />)}
+
+      {attachmentPath &&
+      (<img
+        width="100%"
+        height="auto"
+        alt="post"
+        style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+        //src={`http://localhost:3001/assets/${attachmentPath}`}
+      />)}
+
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
