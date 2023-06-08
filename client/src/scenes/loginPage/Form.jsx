@@ -205,7 +205,10 @@ const Form = () => {
                       </Box>
                     )}
                   </Dropzone>
+                  
                 </Box>
+
+                
               </>
             )}
 
@@ -230,6 +233,7 @@ const Form = () => {
               helperText={touched.password && errors.password}
               sx={{ gridColumn: "span 4" }}
             />
+
           </Box>
 
           {/* BUTTONS */}
