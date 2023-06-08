@@ -29,6 +29,10 @@ const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
+
+  const [isAttachment, setIsAttachment] = useState(false);
+  const [attachment, setAttachment] = useState(null);
+
   const [post, setPost] = useState("");
   const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user);
@@ -45,6 +49,11 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picture", image);
       formData.append("picturePath", image.name);
     }
+    if (attachment) {
+      formData.append("file", attachment);
+      formData.append("filePath", attachment.name);
+    }
+
 
     const response = await fetch(`http://localhost:3001/posts`, {
       method: "POST",
@@ -53,6 +62,7 @@ const MyPostWidget = ({ picturePath }) => {
     });
     const posts = await response.json();
     dispatch(setPosts({ posts }));
+    setAttachment(null);
     setImage(null);
     setPost("");
   };
@@ -117,6 +127,50 @@ const MyPostWidget = ({ picturePath }) => {
           </Dropzone>
         </Box>
       )}
+                {isAttachment && (
+              <Box
+                border={`1px solid ${medium}`}
+                borderRadius="5px"
+                mt="1rem"
+                p="1rem"
+              >
+                <Dropzone
+                  acceptedFiles=".pdf,.xml,.xlsx,.ppt"
+                  multiple={false}
+                  onDrop={(acceptedFiles) => setAttachment(acceptedFiles[0])}
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <FlexBetween>
+                      <Box
+                        {...getRootProps()}
+                        border={`2px dashed ${palette.primary.main}`}
+                        p="1rem"
+                        width="100%"
+                        sx={{ "&:hover": { cursor: "pointer" } }}
+                      >
+                        <input {...getInputProps()} />
+                        {!attachment ? (
+                          <p>Add Attachment Here</p>
+                        ) : (
+                          <FlexBetween>
+                            <Typography>{attachment.name}</Typography>
+                            <EditOutlined />
+                          </FlexBetween>
+                        )}
+                      </Box>
+                      {attachment && (
+                        <IconButton
+                          onClick={() => setAttachment(null)}
+                          sx={{ width: "15%" }}
+                        >
+                          <DeleteOutlined />
+                        </IconButton>
+                      )}
+                    </FlexBetween>
+                  )}
+                </Dropzone>
+              </Box>
+            )}
 
       <Divider sx={{ margin: "1.25rem 0" }} />
 
@@ -138,9 +192,12 @@ const MyPostWidget = ({ picturePath }) => {
               <Typography color={mediumMain}>Clip</Typography>
             </FlexBetween>
 
-            <FlexBetween gap="0.25rem">
+            <FlexBetween gap="0.25rem" onClick={() => setIsAttachment(!isAttachment)}>
               <AttachFileOutlined sx={{ color: mediumMain }} />
-              <Typography color={mediumMain}>Attachment</Typography>
+              <Typography
+                color={mediumMain}
+                sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+              >Attachment</Typography>
             </FlexBetween>
 
             <FlexBetween gap="0.25rem">
