@@ -21,8 +21,8 @@ const PostWidget = ({
   description,
   location,
   picturePath,
-  audioPath, // add audioPath in backend
-  attachmentPath, // add attachmentPath in backend
+  filePath, // add audioPath in backend
+  audioPath,// add attachmentPath in backend
   userPicturePath,
   likes,
   comments,
@@ -76,9 +76,9 @@ const PostWidget = ({
       
       {/*Fix*/}
        {audioPath &&
-      (<AudioPlayer />)}
+      (<AudioPlayer audioPath={audioPath} />)}
 
-      {attachmentPath &&
+      {filePath &&
       (<img
         width="100%"
         height="auto"
