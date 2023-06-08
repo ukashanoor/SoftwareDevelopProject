@@ -78,7 +78,12 @@ const Navbar = () => {
           </IconButton>
           <Message color="primary" sx={{ fontSize: "25px" }} />
           <Notifications color="primary" sx={{ fontSize: "25px" }} />
+          <IconButton onClick={() => setButtonPopup(true)}> 
           <Help color="primary" sx={{ fontSize: "25px" }} />
+          </IconButton>
+          <Popup trigger = {buttonPopup} setTrigger= {setButtonPopup}>
+          </Popup>
+
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
