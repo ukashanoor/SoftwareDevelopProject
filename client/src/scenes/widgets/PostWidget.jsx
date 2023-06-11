@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 import CommentEditor from '../../components/CommentEditor';
 import AudioPlayer from 'components/AudioPlayer';
+import FileViewer from "components/FileView";
 
 const PostWidget = ({
   postId,
@@ -79,13 +80,13 @@ const PostWidget = ({
       (<AudioPlayer audioPath={audioPath} />)}
 
       {filePath &&
-      (<img
-        width="100%"
-        height="auto"
-        alt="post"
-        style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-        //src={`http://localhost:3001/assets/${attachmentPath}`}
-      />)}
+      (<FileViewer filePath={filePath} /> 
+        // width="100%"
+        // height="auto"
+        // alt="post"
+        // style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+        // src={`http://localhost:3001/assets/${filePath}`}
+      )}
 
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
