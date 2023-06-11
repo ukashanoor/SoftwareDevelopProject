@@ -1,11 +1,14 @@
 import React from 'react'
 import './Popup.css'
+import FlexBetween from './FlexBetween';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Popup(props) {
     return (props.trigger) ? (
         <div className="popup">
             <div className="popup-inner">
-                <button className="close-btn" onClick={() => props.setTrigger(false)}>close</button>
+                <CloseIcon  sx={{ "&:hover": { cursor: "pointer" } }} 
+                className="close-btn" onClick={() => props.setTrigger(false)} />
                 { props.children }
                 <div class="wrapper">
                     <h1>Frequently Asked Questions</h1>

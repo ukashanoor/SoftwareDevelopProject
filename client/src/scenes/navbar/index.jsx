@@ -124,7 +124,7 @@ const Navbar = () => {
           right="0"
           bottom="0"
           height="100%"
-          zIndex="10"
+          zIndex="100"
           maxWidth="500px"
           minWidth="300px"
           backgroundColor={navbarColorDefault}
