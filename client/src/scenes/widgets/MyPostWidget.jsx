@@ -55,7 +55,7 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
     if (attachment) {
-      formData.append("file", attachment);
+      formData.append("attachment", attachment);
       formData.append("filePath", attachment.name);
     }
     if (audio) {
