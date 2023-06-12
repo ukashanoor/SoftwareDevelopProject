@@ -49,7 +49,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           location,
           picturePath,
           audioPath, // add audioPath in backend
-          attachmentPath, // add attachmentPath in backend
+          filePath, // add attachmentPath in backend
           userPicturePath,
           likes,
           comments,
@@ -63,7 +63,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             location={location}
             picturePath={picturePath}
             audioPath={audioPath} // add audioPath in backend
-            attachmentPath={audioPath} // add attachmentPath in backend
+            filePath={filePath} // add attachmentPath in backend
             userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}

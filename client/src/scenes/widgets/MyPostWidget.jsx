@@ -55,12 +55,12 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
     if (attachment) {
-      formData.append("file", attachment);
+      formData.append("attachment", attachment);
       formData.append("filePath", attachment.name);
     }
     if (audio) {
-      formData.append("file", audio);
-      formData.append("filePath", audio.name);
+      formData.append("audio", audio);
+      formData.append("audioPath", audio.name);
     }
 
 
@@ -73,6 +73,7 @@ const MyPostWidget = ({ picturePath }) => {
     dispatch(setPosts({ posts }));
     setAttachment(null);
     setImage(null);
+    setAudio(null)
     setPost("");
   };
 
