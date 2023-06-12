@@ -11,7 +11,7 @@ function Popup(props) {
                 className="close-btn" onClick={() => props.setTrigger(false)} />
                 { props.children }
                 <div class="wrapper">
-                    <h1>Frequently Asked Questions</h1>
+                    <h1>FAQ's</h1>
                     <div class="faq">
                         <button class="accordion">
                         1. What’s the best time to post on social media?

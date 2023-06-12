@@ -22,9 +22,9 @@
 }
 
 .accordion {
-    background-color: white;
+    background-color: #f1f7f5;
     color: rgba(0, 0, 0, 0.8);
-    cursor: pointer;
+    
     font-size: 1.2rem;
     width: 100%;
     padding: 2rem 2.5rem;
@@ -76,7 +76,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    height: 75%;
+    height: 95%;
     display: flex;
     justify-content: center;
     align-items:normal;
