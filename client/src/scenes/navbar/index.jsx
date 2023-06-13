@@ -23,6 +23,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
+import Popup from "components/Popup";
+
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -43,6 +45,7 @@ const Navbar = () => {
   // const alt = theme.palette.background.alt;
 
   const fullName = `${user.firstName} ${user.lastName}`;
+  const [buttonPopup, setButtonPopup] = useState(false);
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={navbarColor}>
@@ -75,7 +78,12 @@ const Navbar = () => {
           </IconButton>
           <Message color="primary" sx={{ fontSize: "25px" }} />
           <Notifications color="primary" sx={{ fontSize: "25px" }} />
+          <IconButton onClick={() => setButtonPopup(true)}> 
           <Help color="primary" sx={{ fontSize: "25px" }} />
+          </IconButton>
+          <Popup trigger = {buttonPopup} setTrigger= {setButtonPopup}>
+          </Popup>
+
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
@@ -116,7 +124,7 @@ const Navbar = () => {
           right="0"
           bottom="0"
           height="100%"
-          zIndex="10"
+          zIndex="100"
           maxWidth="500px"
           minWidth="300px"
           backgroundColor={navbarColorDefault}
