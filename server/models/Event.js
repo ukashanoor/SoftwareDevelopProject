@@ -36,8 +36,7 @@ const eventSchema = mongoose.Schema(
         type: String,
         required: true
     },
-    volunteerOpportunity: String,
-    supplies: String,
+    noOfAttendees: String,
     paymentMethod: String
   },
   { timestamps: true }
