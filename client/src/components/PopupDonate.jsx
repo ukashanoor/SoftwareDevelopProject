@@ -55,33 +55,20 @@ function PopupDonate(props) {
     const navigate = useNavigate();
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
-    const request = async (values, onSubmitProps) => {
-        // this allows us to send form info with image
-        const formData = new FormData();
-        for (let value in values) {
-            formData.append(value, values[value]);
-        }
-        formData.append("DonatePicPath", values.picture.name);
-
-
-
-        const savedDonateResponse = await fetch(
-            "http://localhost:3001/donate/post",
-            {
+    const createDonation = async (values, onSubmitProps) => {
+        console.log(values);
+        try {
+            const DonateResponse = await fetch("http://localhost:3001/donations/add", {
                 method: "POST",
-                body: formData,
-            }
-        );
-        const savedDonate = await savedDonateResponse.json();
-        onSubmitProps.resetForm();
-
-        if (savedDonate) {
-            setPageType("/home");
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(values),
+            });
+            const Donate = await DonateResponse.json();
+            onSubmitProps.resetForm();
+        } catch (error) {
+            console.error('Error creating donation:', error);
         }
-    };
 
-
-    const handleFormSubmit = async (values, onSubmitProps) => {
 
     };
 
@@ -96,7 +83,7 @@ function PopupDonate(props) {
 
 
                     <Formik
-                        onSubmit={handleFormSubmit}
+                        onSubmit={createDonation}
                         initialValues={initialValuesRequest}
                         validationSchema={requestSchema}
                     >
@@ -110,7 +97,7 @@ function PopupDonate(props) {
                             setFieldValue,
                             resetForm,
                         }) => (
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={createDonation}>
                                 <Box
                                     display="grid"
                                     gap="30px"
@@ -197,7 +184,7 @@ function PopupDonate(props) {
                                         sx={{ gridColumn: "span 4" }}
                                     />
                                     <div>
-                                        
+
                                         <DatePicker
                                             selected={date}
                                             onBlur={handleBlur}
@@ -229,21 +216,7 @@ function PopupDonate(props) {
                                         >
                                             {"SUBMIT"}
                                         </Button>
-                                        <Typography
-                                            onClick={() => {
-                                                setPageType("Donate");
-                                                resetForm();
-                                            }}
-                                            sx={{
-                                                textDecoration: "underline",
-                                                color: palette.primary.main,
-                                                "&:hover": {
-                                                    cursor: "pointer",
-                                                    color: palette.primary.light,
-                                                },
-                                            }}
-                                        >
-                                        </Typography>
+                                    
                                     </Box>
                                 </Box>
                             </form>
