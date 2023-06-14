@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
 
 
 * {
@@ -101,3 +101,16 @@
     top: 16px;
     right: 16px;
 }
+
+/* Popup.css */
+.date-picker {
+
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: none;
+
+
+
+  }

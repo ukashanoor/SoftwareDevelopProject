@@ -11,6 +11,8 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PopupDonate from "components/PopupDonate";
+import PopupRequest from "components/PopupRequest";
 
 const DonationWidget = ({ userId, picturePath }) => {
     const [user, setUser] = useState(null);
@@ -20,6 +22,9 @@ const DonationWidget = ({ userId, picturePath }) => {
     const dark = palette.neutral.dark;
     const medium = palette.neutral.medium;
     const main = palette.neutral.main;
+
+    const [buttonPopupDonate, setButtonPopupDonate] = useState(false);
+    const [buttonPopupRequest, setButtonPopupRequest] = useState(false);
 
     const getUser = async () => {
         const response = await fetch(`http://localhost:3001/users/${userId}`, {
@@ -78,20 +83,22 @@ const DonationWidget = ({ userId, picturePath }) => {
             <Box display="flex" justifyContent="space-between">
                 <Button variant="contained"
                     //   disabled={!post}
-                    //   onClick={}
+
+                    onClick={() => setButtonPopupDonate(true)}
                     sx={{
                         color: palette.background.alt,
                         backgroundColor: palette.primary.main,
                         borderRadius: "1rem",
                         mt: '10px',
-                        mb: '15px'
+                        mb: '15px',
+                        marginRight: '0.5rem'
                     }}
                 >
                     Donate
                 </Button>
                 <Button variant="contained"
                     //   disabled={!post}
-                    //   onClick={}
+                    onClick={() => setButtonPopupRequest(true)}
                     sx={{
                         color: palette.background.alt,
                         backgroundColor: palette.primary.main,
@@ -117,7 +124,19 @@ const DonationWidget = ({ userId, picturePath }) => {
                     <Typography color={main}>{location}</Typography>
                 </Box>
             </Box>
+            
+            {/* Popup donate button */}
+            <PopupDonate trigger = {buttonPopupDonate} setTrigger= {setButtonPopupDonate}>
+          </PopupDonate>
+
+             {/* Popup Request button */}
+          <PopupRequest trigger = {buttonPopupRequest} setTrigger= {setButtonPopupRequest}>
+          </PopupRequest>
+
         </WidgetWrapper>
+
+
+        
     );
 };
 
