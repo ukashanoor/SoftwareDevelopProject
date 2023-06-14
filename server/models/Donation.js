@@ -36,6 +36,6 @@ const donationSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Donation = mongoose.model("Event", donationSchema);
+const Donation = mongoose.model("Donation", donationSchema);
 
 export default Donation;
