@@ -143,15 +143,6 @@ function PopupDonate(props) {
                                         sx={{ gridColumn: "span 4" }}
                                     />
 
-
-
-
-
-
-
-
-
-
                                     <TextField
                                         label="Category"
                                         onBlur={handleBlur}

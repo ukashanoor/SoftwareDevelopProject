@@ -20,6 +20,7 @@ const DonationWidget = ({ userId, picturePath }) => {
     const navigate = useNavigate();
     const token = useSelector((state) => state.token);
     const dark = palette.neutral.dark;
+    const light = palette.neutral.light;
     const medium = palette.neutral.medium;
     const main = palette.neutral.main;
 
@@ -116,15 +117,15 @@ const DonationWidget = ({ userId, picturePath }) => {
 
             {/* THIRD ROW */}
             <Box p="1rem 0">
-                <Box display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={medium}>
+                <Box display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={light}>
                     <Typography  color={main} pl="0.5rem">{location}</Typography>
                     <Typography color={main}>{location}</Typography>
                     <Typography color={main}>{location}</Typography>
                     <Typography color={main}>{location}</Typography>
                     <Typography color={main} pr="0.5rem">{location}</Typography>
                 </Box>
-                <Box display="flex" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={medium}>
-                    <Typography bgcolor={medium} color={main}>{location}</Typography>
+                <Box display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={light}>
+                    <Typography color={main} pl="0.5rem">{location}</Typography>
                     <Typography color={main}>{location}</Typography>
                     <Typography color={main}>{location}</Typography>
                     <Typography color={main}>{location}</Typography>
