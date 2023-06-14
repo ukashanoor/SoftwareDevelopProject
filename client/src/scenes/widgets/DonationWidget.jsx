@@ -116,8 +116,15 @@ const DonationWidget = ({ userId, picturePath }) => {
 
             {/* THIRD ROW */}
             <Box p="1rem 0">
-                <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+                <Box display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={medium}>
+                    <Typography  color={main} pl="0.5rem">{location}</Typography>
                     <Typography color={main}>{location}</Typography>
+                    <Typography color={main}>{location}</Typography>
+                    <Typography color={main}>{location}</Typography>
+                    <Typography color={main} pr="0.5rem">{location}</Typography>
+                </Box>
+                <Box display="flex" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={medium}>
+                    <Typography bgcolor={medium} color={main}>{location}</Typography>
                     <Typography color={main}>{location}</Typography>
                     <Typography color={main}>{location}</Typography>
                     <Typography color={main}>{location}</Typography>

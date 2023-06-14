@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const eventSchema = mongoose.Schema(
   {
     userId: {
@@ -43,7 +42,5 @@ const eventSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-
 const Event = mongoose.model("Event", eventSchema);
-
 export default Event;
