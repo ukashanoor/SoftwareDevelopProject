@@ -19,6 +19,9 @@ import { useDispatch } from "react-redux";
 import Dropzone from "react-dropzone";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
+import Modal from 'react-modal';
+import { useSelector } from "react-redux";
+
 
 
 const requestSchema = yup.object().shape({
@@ -46,7 +49,7 @@ const initialValuesRequest = {
     additionalDetails: "",
 };
 
-function PopupDonate(props) {
+function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
     const [date, setDate] = useState(null);
 
     const [pageType, setPageType] = useState("donate");
@@ -54,48 +57,39 @@ function PopupDonate(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isNonMobile = useMediaQuery("(min-width:600px)");
+    const token = useSelector((state) => state.token);
 
-    const request = async (values, onSubmitProps) => {
-        // this allows us to send form info with image
-        const formData = new FormData();
-        for (let value in values) {
-            formData.append(value, values[value]);
-        }
-        formData.append("DonatePicPath", values.picture.name);
-
-
-
-        const savedDonateResponse = await fetch(
-            "http://localhost:3001/donate/post",
-            {
+    const createDonation = async (values) => {
+        console.log(values);
+        try {
+            const DonateResponse = await fetch("http://localhost:3001/donations/add", {
                 method: "POST",
-                body: formData,
-            }
-        );
-        const savedDonate = await savedDonateResponse.json();
-        onSubmitProps.resetForm();
-
-        if (savedDonate) {
-            setPageType("/home");
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+                body: JSON.stringify(values),
+            });
+            const Donate = await DonateResponse.json();
+        } catch (error) {
+            console.error('Error creating donation:', error);
         }
-    };
 
-
-    const handleFormSubmit = async (values, onSubmitProps) => {
 
     };
 
+    const handleFormSubmit = (values) => {
+        let v = values.target;
+        const formValues = {};
+        formValues["userId"] = userId;
+        for (let i = 0; i < 13; i+=2) {
+            formValues[v[i].name] = v[i].value; 
+        }
+        createDonation(formValues);
+        onSubmit(formValues);
+        onClose();
+      };
 
-    return (props.trigger) ? (
-        <div className="popup">
-            <div className="popup-inner">
-                <CloseIcon sx={{ "&:hover": { cursor: "pointer" } }}
-                    className="close-btn" onClick={() => props.setTrigger(false)} />
-                {props.children}
-                <div class="wrapper">
-
-
-                    <Formik
+    return (
+        <Modal isOpen={isOpen} onRequestClose={onClose}>
+        <Formik
                         onSubmit={handleFormSubmit}
                         initialValues={initialValuesRequest}
                         validationSchema={requestSchema}
@@ -110,7 +104,7 @@ function PopupDonate(props) {
                             setFieldValue,
                             resetForm,
                         }) => (
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleFormSubmit}>
                                 <Box
                                     display="grid"
                                     gap="30px"
@@ -249,12 +243,8 @@ function PopupDonate(props) {
                             </form>
                         )}
                     </Formik>
-                </div>
-            </div>
-        </div>
-
-
-    ) : "";
+                </Modal>
+    );
 }
 
 export default PopupDonate;

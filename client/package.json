@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-html-render": "^1.0.3",
+    "react-modal": "^3.16.1",
     "react-pdf": "^7.1.1",
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.4",

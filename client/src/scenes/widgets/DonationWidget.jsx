@@ -26,6 +26,7 @@ const DonationWidget = ({ userId, picturePath }) => {
 
     const [buttonPopupDonate, setButtonPopupDonate] = useState(false);
     const [buttonPopupRequest, setButtonPopupRequest] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const getUser = async () => {
         const response = await fetch(`http://localhost:3001/users/${userId}`, {
@@ -35,6 +36,19 @@ const DonationWidget = ({ userId, picturePath }) => {
         const data = await response.json();
         setUser(data);
     };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);
+      };
+
+      const handleFormSubmit = (values) => {
+        // Handle form submission
+        console.log(values);
+      };
 
     useEffect(() => {
         getUser();
@@ -85,7 +99,7 @@ const DonationWidget = ({ userId, picturePath }) => {
                 <Button variant="contained"
                     //   disabled={!post}
 
-                    onClick={() => setButtonPopupDonate(true)}
+                    onClick={openModal}
                     sx={{
                         color: palette.background.alt,
                         backgroundColor: palette.primary.main,
@@ -97,6 +111,7 @@ const DonationWidget = ({ userId, picturePath }) => {
                 >
                     Donate
                 </Button>
+                <PopupDonate isOpen={isModalOpen} onClose={closeModal} onSubmit={handleFormSubmit} userId={userId}/>
                 <Button variant="contained"
                     //   disabled={!post}
                     onClick={() => setButtonPopupRequest(true)}
