@@ -128,14 +128,5 @@
     backdrop-filter: blur(8px); /* Add the background blur effect */
     z-index: 9998;
   }
-  .overlayBYmodal{
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    width: 10%;
-    height: 10%;
-    background-color: rgba(50, 50, 50, 0.5);
-    backdrop-filter: blur(8px); /* Add the background blur effect */
-    z-index: 9998;
-  }
+
   
