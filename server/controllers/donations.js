@@ -5,6 +5,7 @@ import Donation from "../models/Donation.js";
 export const createDonation = async (req, res) => {
     try {
       const {
+        _id,
         userId,
         donorFullName,
         donorLocation,

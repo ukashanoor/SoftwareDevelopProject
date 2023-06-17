@@ -11,16 +11,15 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import Dropzone from "react-dropzone";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from 'react-modal';
 import { useSelector } from "react-redux";
+import { setDonations } from "state";
 
 
 
@@ -59,6 +58,7 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const token = useSelector((state) => state.token);
 
+
     const createDonation = async (values) => {
         console.log(values);
         try {
@@ -68,6 +68,7 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                 body: JSON.stringify(values),
             });
             const Donate = await DonateResponse.json();
+            dispatch(setDonations({ Donate }));
         } catch (error) {
             console.error('Error creating donation:', error);
         }
@@ -79,17 +80,25 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
         let v = values.target;
         const formValues = {};
         formValues["userId"] = userId;
-        for (let i = 0; i < 13; i+=2) {
-            formValues[v[i].name] = v[i].value; 
+        for (let i = 0; i < 13; i += 2) {
+            formValues[v[i].name] = v[i].value;
         }
         createDonation(formValues);
         onSubmit(formValues);
         onClose();
-      };
+    };
+
 
     return (
-        <Modal isOpen={isOpen} onRequestClose={onClose}>
-        <Formik
+        <Modal className="popup" isOpen={isOpen} onRequestClose={onClose}>
+            <div className="popup-inner">
+                <div class="wrapper">
+
+                    <Button className="close-btn" onClick={onClose}>
+                        <CloseIcon />
+                    </Button>
+
+                    <Formik
                         onSubmit={handleFormSubmit}
                         initialValues={initialValuesRequest}
                         validationSchema={requestSchema}
@@ -100,9 +109,6 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                             touched,
                             handleBlur,
                             handleChange,
-                            handleSubmit,
-                            setFieldValue,
-                            resetForm,
                         }) => (
                             <form onSubmit={handleFormSubmit}>
                                 <Box
@@ -113,7 +119,13 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                                     }}
                                 >
-                                    <h1>Donate</h1>
+                                    <div className="popup-header">
+
+
+
+                                        <h1>Donate</h1>
+
+                                    </div>
 
                                     <TextField
                                         label="Full Name"
@@ -191,7 +203,7 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                                         sx={{ gridColumn: "span 4" }}
                                     />
                                     <div>
-                                        
+
                                         <DatePicker
                                             selected={date}
                                             onBlur={handleBlur}
@@ -203,6 +215,8 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                                             placeholderText="Pickup Date"
                                         />
                                     </div>
+
+
 
 
 
@@ -223,27 +237,15 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                                         >
                                             {"SUBMIT"}
                                         </Button>
-                                        <Typography
-                                            onClick={() => {
-                                                setPageType("Donate");
-                                                resetForm();
-                                            }}
-                                            sx={{
-                                                textDecoration: "underline",
-                                                color: palette.primary.main,
-                                                "&:hover": {
-                                                    cursor: "pointer",
-                                                    color: palette.primary.light,
-                                                },
-                                            }}
-                                        >
-                                        </Typography>
+
                                     </Box>
                                 </Box>
                             </form>
                         )}
                     </Formik>
-                </Modal>
+                </div>
+            </div>
+        </Modal>
     );
 }
 
