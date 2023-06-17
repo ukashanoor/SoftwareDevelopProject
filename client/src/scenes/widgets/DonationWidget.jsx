@@ -16,9 +16,10 @@ import PopupDonate from "components/PopupDonate";
 import PopupRequest from "components/PopupRequest";
 // import ListOfDonations from "components/ListOfDonations";
 
-const DonationWidget = ({ userId }) => {
+const DonationWidget = ({ userId, _id }) => {
+    const [user, setUser] = useState(null);
     const dispatch = useDispatch();
-    const donations = useSelector((state) => state.donations);
+    let donations = useSelector((state) => state.donations);
     const { palette } = useTheme();
     const navigate = useNavigate();
     const token = useSelector((state) => state.token);
@@ -31,7 +32,7 @@ const DonationWidget = ({ userId }) => {
     const [buttonPopupRequest, setButtonPopupRequest] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const getDonation = async () => {
+    const getDonation = async (flag) => {
         debugger;
         const response = await fetch("http://localhost:3001/donations", {
             method: "GET",
@@ -39,6 +40,10 @@ const DonationWidget = ({ userId }) => {
         });
         const data = await response.json();
         dispatch(setDonations({ donations: data }));
+        if(flag){
+            donations = data;
+        }
+
     };
 
     const openModal = () => {
@@ -51,20 +56,23 @@ const DonationWidget = ({ userId }) => {
 
     const handleFormSubmit = (values) => {
         // Handle form submission
+
         console.log(values);
     };
 
     useEffect(() => {
-        getDonation();
+        getDonation(false);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     if (!donations) {
-        return null;
+        getDonation(true);
+        return donations;
     }
 
     return (
         <>
-            <WidgetWrapper>
+
+            <WidgetWrapper >
                 {/* FIRST ROW */}
                 <FlexBetween
                     gap="0.5rem"
@@ -126,13 +134,18 @@ const DonationWidget = ({ userId }) => {
                 <Divider />
 
                 {/* THIRD ROW */}
-                <Box p="1rem 0"
+                <Box
+                    p="1rem"
                     borderRadius="1rem"
                     bgcolor={light}
                     display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    marginTop="0.5rem" >
+                    marginTop="0.5rem"
+                    width="100%"
+                    height="250px"
+                    overflow="auto" // Add this CSS property to make the box scrollable
+
+
+                >
 
                     <table display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={light} >
                         <thead>
@@ -180,7 +193,9 @@ const DonationWidget = ({ userId }) => {
                 </PopupRequest>
 
             </WidgetWrapper>
+
         </>
+
 
     );
 };

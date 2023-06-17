@@ -50,7 +50,6 @@ const initialValuesRequest = {
 
 function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
     const [date, setDate] = useState(null);
-
     const [pageType, setPageType] = useState("donate");
     const { palette } = useTheme();
     const dispatch = useDispatch();
@@ -86,6 +85,7 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
         createDonation(formValues);
         onSubmit(formValues);
         onClose();
+
     };
 
 
