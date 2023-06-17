@@ -62,24 +62,8 @@ const DonationWidget = ({ userId }) => {
         return null;
     }
 
-    const {
-        donorFullName,
-        donorLocation,
-        donorEmail,
-        donationCategory,
-        donationType,
-        donationDescription,
-        pickupRequired,
-        pickupDate,
-        additionalDetails,
-    } = donations;
-
     return (
         <>
-        
-
-    
-
             <WidgetWrapper>
                 {/* FIRST ROW */}
                 <FlexBetween
@@ -142,33 +126,48 @@ const DonationWidget = ({ userId }) => {
                 <Divider />
 
                 {/* THIRD ROW */}
-                <Box p="1rem 0">
-                    <Box display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={light}>
-                        <Box>Name</Box>
-                        <Box>Description</Box>
-                        <Box>Location</Box>
+                <Box p="1rem 0"
+                    borderRadius="1rem"
+                    bgcolor={light}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    marginTop="0.5rem" >
 
-         
-                        {donations.map(
-                ({
-                    donorFullName,
-                    donorLocation,
-                    donorEmail,
-                    donationCategory,
-                    donationType,
-                    donationDescription,
-                    pickupRequired,
-                    pickupDate,
-                    additionalDetails,
-                }) => (
-                    <Typography color={main}> {donorFullName} </Typography>
-                
-                    
-                ))}
-                        {/* <Typography  color={main} pl="0.5rem">{donorFullName}</Typography>
-                    <Typography color={main}>{donorFullName}</Typography>
-                    <Typography color={main}>{donorFullName}</Typography>      */}
-                    </Box>
+                    <table display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={light} >
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Location</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {donations.map(
+                                ({
+                                    _id,
+                                    userId,
+                                    donorFullName,
+                                    donorLocation,
+                                    donorEmail,
+                                    donationCategory,
+                                    donationType,
+                                    donationDescription,
+                                    pickupRequired,
+                                    pickupDate,
+                                    additionalDetails,
+                                }) => (
+                                    <tr key={_id}>
+                                        <td style={{ textAlign: "center" }}>{donorFullName}</td>
+                                        <td style={{ textAlign: "center" }}>{donorLocation}</td>
+                                        <td style={{ textAlign: "center" }}>{donationDescription}</td>
+                                    </tr>
+                                )
+                            )}
+                        </tbody>
+                    </table>
+
+
                 </Box>
 
 
@@ -181,7 +180,7 @@ const DonationWidget = ({ userId }) => {
                 </PopupRequest>
 
             </WidgetWrapper>
-            </>
+        </>
 
     );
 };

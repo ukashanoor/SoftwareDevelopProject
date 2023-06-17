@@ -90,157 +90,161 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
 
 
     return (
-        <Modal isOpen={isOpen} onRequestClose={onClose}>
+        <Modal className="popup" isOpen={isOpen} onRequestClose={onClose}>
+            <div className="popup-inner">
+                <div class="wrapper">
 
-            <Button className="close-btn" onClick={onClose}>
-                <CloseIcon />
-            </Button>
+                    <Button className="close-btn" onClick={onClose}>
+                        <CloseIcon />
+                    </Button>
 
-            <Formik
-                onSubmit={handleFormSubmit}
-                initialValues={initialValuesRequest}
-                validationSchema={requestSchema}
-            >
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleBlur,
-                    handleChange,
-                }) => (
-                    <form onSubmit={handleFormSubmit}>
-                        <Box
-                            display="grid"
-                            gap="30px"
-                            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                            sx={{
-                                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-                            }}
-                        >
-                            <div className="popup-header">
-
-
-
-                                <h1>Donate</h1>
-
-                            </div>
-
-                            <TextField
-                                label="Full Name"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.donorFullName}
-                                name="donorFullName"
-                                error={Boolean(touched.donorFullName) && Boolean(errors.donorFullName)}
-                                helperText={touched.donorFullName && errors.donorFullName}
-                                sx={{ gridColumn: "span 4" }}
-                            />
-
-                            <TextField
-                                label="Email"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.donorEmail}
-                                name="donorEmail"
-                                error={Boolean(touched.donorEmail) && Boolean(errors.donorEmail)}
-                                helperText={touched.donorEmail && errors.donorEmail}
-                                sx={{ gridColumn: "span 4" }}
-                            />
-
-                            <TextField
-                                label="Category"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.donationCategory}
-                                name="donationCategory"
-                                error={Boolean(touched.donationCategory) && Boolean(errors.donationCategory)}
-                                helperText={touched.donationCategory && errors.donationCategory}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-                            <TextField
-                                label="Type"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.donationType}
-                                name="donationType"
-                                error={Boolean(touched.donationType) && Boolean(errors.donationType)}
-                                helperText={touched.donationType && errors.donationType}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-
-                            <TextField
-                                label="Description"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.donationDescription}
-                                name="donationDescription"
-                                error={Boolean(touched.donationDescription) && Boolean(errors.donationDescription)}
-                                helperText={touched.donationDescription && errors.donationDescription}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-
-                            <TextField
-                                label="Location"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.donorLocation}
-                                name="donorLocation"
-                                error={Boolean(touched.donorLocation) && Boolean(errors.donorLocation)}
-                                helperText={touched.donorLocation && errors.donorLocation}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-
-                            <TextField
-                                label="Additional Details"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.additionalDetails}
-                                name="additionalDetails"
-                                error={Boolean(touched.additionalDetails) && Boolean(errors.additionalDetails)}
-                                helperText={touched.additionalDetails && errors.additionalDetails}
-                                sx={{ gridColumn: "span 4" }}
-                            />
-                            <div>
-
-                                <DatePicker
-                                    selected={date}
-                                    onBlur={handleBlur}
-                                    value={values.pickupDate}
-                                    onChange={(date) => setDate(date)}
-                                    className={"date-picker"}
-                                    error={Boolean(touched.pickupDate) && Boolean(errors.pickupDate)}
-                                    helperText={touched.pickupDate && errors.pickupDate}
-                                    placeholderText="Pickup Date"
-                                />
-                            </div>
-
-
-
-
-
-                            {/* BUTTONS */}
-                            <Box >
-                                <Button
-                                    fullWidth
-                                    type="submit"
+                    <Formik
+                        onSubmit={handleFormSubmit}
+                        initialValues={initialValuesRequest}
+                        validationSchema={requestSchema}
+                    >
+                        {({
+                            values,
+                            errors,
+                            touched,
+                            handleBlur,
+                            handleChange,
+                        }) => (
+                            <form onSubmit={handleFormSubmit}>
+                                <Box
+                                    display="grid"
+                                    gap="30px"
+                                    gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                                     sx={{
-                                        width: "100%",
-                                        m: "5rem",
-                                        p: "1rem",
-                                        mt: "7rem",
-                                        backgroundColor: palette.primary.main,
-                                        color: palette.background.alt,
-                                        "&:hover": { color: palette.primary.main },
+                                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                                     }}
                                 >
-                                    {"SUBMIT"}
-                                </Button>
+                                    <div className="popup-header">
 
-                            </Box>
-                        </Box>
-                    </form>
-                )}
-            </Formik>
+
+
+                                        <h1>Donate</h1>
+
+                                    </div>
+
+                                    <TextField
+                                        label="Full Name"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.donorFullName}
+                                        name="donorFullName"
+                                        error={Boolean(touched.donorFullName) && Boolean(errors.donorFullName)}
+                                        helperText={touched.donorFullName && errors.donorFullName}
+                                        sx={{ gridColumn: "span 4" }}
+                                    />
+
+                                    <TextField
+                                        label="Email"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.donorEmail}
+                                        name="donorEmail"
+                                        error={Boolean(touched.donorEmail) && Boolean(errors.donorEmail)}
+                                        helperText={touched.donorEmail && errors.donorEmail}
+                                        sx={{ gridColumn: "span 4" }}
+                                    />
+
+                                    <TextField
+                                        label="Category"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.donationCategory}
+                                        name="donationCategory"
+                                        error={Boolean(touched.donationCategory) && Boolean(errors.donationCategory)}
+                                        helperText={touched.donationCategory && errors.donationCategory}
+                                        sx={{ gridColumn: "span 2" }}
+                                    />
+                                    <TextField
+                                        label="Type"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.donationType}
+                                        name="donationType"
+                                        error={Boolean(touched.donationType) && Boolean(errors.donationType)}
+                                        helperText={touched.donationType && errors.donationType}
+                                        sx={{ gridColumn: "span 2" }}
+                                    />
+
+                                    <TextField
+                                        label="Description"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.donationDescription}
+                                        name="donationDescription"
+                                        error={Boolean(touched.donationDescription) && Boolean(errors.donationDescription)}
+                                        helperText={touched.donationDescription && errors.donationDescription}
+                                        sx={{ gridColumn: "span 2" }}
+                                    />
+
+                                    <TextField
+                                        label="Location"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.donorLocation}
+                                        name="donorLocation"
+                                        error={Boolean(touched.donorLocation) && Boolean(errors.donorLocation)}
+                                        helperText={touched.donorLocation && errors.donorLocation}
+                                        sx={{ gridColumn: "span 2" }}
+                                    />
+
+                                    <TextField
+                                        label="Additional Details"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.additionalDetails}
+                                        name="additionalDetails"
+                                        error={Boolean(touched.additionalDetails) && Boolean(errors.additionalDetails)}
+                                        helperText={touched.additionalDetails && errors.additionalDetails}
+                                        sx={{ gridColumn: "span 4" }}
+                                    />
+                                    <div>
+
+                                        <DatePicker
+                                            selected={date}
+                                            onBlur={handleBlur}
+                                            value={values.pickupDate}
+                                            onChange={(date) => setDate(date)}
+                                            className={"date-picker"}
+                                            error={Boolean(touched.pickupDate) && Boolean(errors.pickupDate)}
+                                            helperText={touched.pickupDate && errors.pickupDate}
+                                            placeholderText="Pickup Date"
+                                        />
+                                    </div>
+
+
+
+
+
+                                    {/* BUTTONS */}
+                                    <Box >
+                                        <Button
+                                            fullWidth
+                                            type="submit"
+                                            sx={{
+                                                width: "100%",
+                                                m: "5rem",
+                                                p: "1rem",
+                                                mt: "7rem",
+                                                backgroundColor: palette.primary.main,
+                                                color: palette.background.alt,
+                                                "&:hover": { color: palette.primary.main },
+                                            }}
+                                        >
+                                            {"SUBMIT"}
+                                        </Button>
+
+                                    </Box>
+                                </Box>
+                            </form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
         </Modal>
     );
 }

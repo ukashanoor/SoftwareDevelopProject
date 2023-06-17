@@ -5,7 +5,8 @@ import CloseIcon from '@mui/icons-material/Close';
 
 function Popup(props) {
     return (props.trigger) ? (
-        <div className="popup">
+        <div className="popup-overlay">
+        <div className="popup">  
             <div className="popup-inner">
                 <CloseIcon  sx={{ "&:hover": { cursor: "pointer" } }} 
                 className="close-btn" onClick={() => props.setTrigger(false)} />
@@ -40,6 +41,7 @@ function Popup(props) {
                     </div>
                     
                 </div>
+            </div>
             </div>
         </div>
     ) : "";
