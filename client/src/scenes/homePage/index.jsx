@@ -25,7 +25,7 @@ const HomePage = () => {
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />
           <Box m="2rem 0" />
-          <DonationWidget userId={_id} picturePath={picturePath} />
+          <DonationWidget userId={_id} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
