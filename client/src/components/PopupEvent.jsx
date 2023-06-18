@@ -18,63 +18,59 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from 'react-modal';
 import { useSelector } from "react-redux";
-import { setDonations } from "state";
+import { setEvents } from "state";
 
-
-
-const requestSchema = yup.object().shape({
-    donorFullName: yup.string().required("required"),
-    donorLocation: yup.string().required("required"),
-    donorEmail: yup.string().email("invalid email").required("required"),
+const eventSchema = yup.object().shape({
+    eventName: yup.string().required("required"),
+    eventLocation: yup.string().required("required"),
+    eventDate: yup.date().required("required"),
+    organizerName: yup.string().required("required"),
+    organizerPhone: yup.string().required("required"),
     donationCategory: yup.string().required("required"),
     donationType: yup.string().required("required"),
-    donationDescription: yup.string().required("required"),
-    pickupRequired: yup.date().required("required"),
-    pickupDate: yup.date().required("required"),
-
+    noOfAttendees: yup.number().required("required"),
 });
 
-
-
-const initialValuesRequest = {
-    donorFullName: "",
-    donorLocation: "",
-    donorEmail: "",
+const initialValues = {
+    eventName: "",
+    eventLocation: "",
+    eventDate: null,
+    eventDescription: "",
+    organizerName: "",
+    organizerPhone: "",
     donationCategory: "",
     donationType: "",
-    donationDescription: "",
-    pickupDate: null,
-    additionalDetails: "",
+    noOfAttendees: 0,
 };
 
-function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
+function PopupEvent({ isOpen, onClose, onSubmit, userId }) {
     const [date, setDate] = useState(null);
-    const [pageType, setPageType] = useState("donate");
+    const [pageType, setPageType] = useState("event");
     const { palette } = useTheme();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const token = useSelector((state) => state.token);
 
-
-    const createDonation = async (values) => {
+    const createEvent = async (values) => {
+   
         console.log(values);
         try {
-            const DonateResponse = await fetch("http://localhost:3001/donations/add", {
+            const eventResponse = await fetch("http://localhost:3001/events/add", {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
                 body: JSON.stringify(values),
+                
             });
-            const Donate = await DonateResponse.json();
-            dispatch(setDonations({ Donate }));
+            const event = await eventResponse.json();
+            dispatch(setEvents({ event }));
         } catch (error) {
-            console.error('Error creating donation:', error);
+            console.error('Error creating event:', error);
         }
-
-
     };
 
     const handleFormSubmit = (values) => {
+
         let v = values.target;
         const formValues = {};
         formValues["userId"] = userId;
@@ -83,26 +79,23 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                 formValues[v[i].name] = v[i].value;
             }
         }
-        createDonation(formValues);
+        createEvent(formValues);
         onSubmit(formValues);
         onClose();
-
     };
-
 
     return (
         <Modal className="popup" isOpen={isOpen} onRequestClose={onClose}>
             <div className="popup-inner">
-                <div class="wrapper">
-
+                <div className="wrapper">
                     <Button className="close-btn" onClick={onClose}>
                         <CloseIcon />
                     </Button>
 
                     <Formik
                         onSubmit={handleFormSubmit}
-                        initialValues={initialValuesRequest}
-                        validationSchema={requestSchema}
+                        initialValues={initialValues}
+                        validationSchema={eventSchema}
                     >
                         {({
                             values,
@@ -121,37 +114,80 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                                     }}
                                 >
                                     <div className="popup-header">
-
-
-
-                                        <h1>Donate</h1>
-
+                                        <h1>Event</h1>
                                     </div>
 
                                     <TextField
-                                        label="Full Name"
+                                        label="Event Name"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        value={values.donorFullName}
-                                        name="donorFullName"
-                                        error={Boolean(touched.donorFullName) && Boolean(errors.donorFullName)}
-                                        helperText={touched.donorFullName && errors.donorFullName}
+                                        value={values.eventName}
+                                        name="eventName"
+                                        error={Boolean(touched.eventName) && Boolean(errors.eventName)}
+                                        helperText={touched.eventName && errors.eventName}
                                         sx={{ gridColumn: "span 4" }}
                                     />
 
                                     <TextField
-                                        label="Email"
+                                        label="Event Location"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        value={values.donorEmail}
-                                        name="donorEmail"
-                                        error={Boolean(touched.donorEmail) && Boolean(errors.donorEmail)}
-                                        helperText={touched.donorEmail && errors.donorEmail}
+                                        value={values.eventLocation}
+                                        name="eventLocation"
+                                        error={Boolean(touched.eventLocation) && Boolean(errors.eventLocation)}
+                                        helperText={touched.eventLocation && errors.eventLocation}
+                                        sx={{ gridColumn: "span 4" }}
+                                    />
+
+                                    <div>
+                                        <DatePicker
+                                            selected={date}
+                                            onBlur={handleBlur}
+                                            value={values.eventDate}
+                                            name="eventDate"
+                                            onChange={(date) => setDate(date)}
+                                            className={"date-picker"}
+                                            error={Boolean(touched.eventDate) && Boolean(errors.eventDate)}
+                                            helperText={touched.eventDate && errors.eventDate}
+                                            placeholderText="Event Date"
+                                        />
+                                    </div>
+
+                                    <TextField
+                                        label="Event Description"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.eventDescription}
+                                        name="eventDescription"
+                                        error={Boolean(touched.eventDescription) && Boolean(errors.eventDescription)}
+                                        helperText={touched.eventDescription && errors.eventDescription}
                                         sx={{ gridColumn: "span 4" }}
                                     />
 
                                     <TextField
-                                        label="Category"
+                                        label="Organizer Name"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.organizerName}
+                                        name="organizerName"
+                                        error={Boolean(touched.organizerName) && Boolean(errors.organizerName)}
+                                        helperText={touched.organizerName && errors.organizerName}
+                                        sx={{ gridColumn: "span 2" }}
+                                    />
+
+                                    <TextField
+                                        label="Organizer Phone"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.organizerPhone}
+                                        name="organizerPhone"
+                                        error={Boolean(touched.organizerPhone) && Boolean(errors.organizerPhone)}
+                                        helperText={touched.organizerPhone && errors.organizerPhone}
+                                        sx={{ gridColumn: "span 2" }}
+                                    />
+
+                                    <TextField
+                                        label="Donation Category"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.donationCategory}
@@ -160,8 +196,9 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                                         helperText={touched.donationCategory && errors.donationCategory}
                                         sx={{ gridColumn: "span 2" }}
                                     />
+
                                     <TextField
-                                        label="Type"
+                                        label="Donation Type"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         value={values.donationType}
@@ -172,58 +209,19 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                                     />
 
                                     <TextField
-                                        label="Description"
+                                        label="Number of Attendees"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        value={values.donationDescription}
-                                        name="donationDescription"
-                                        error={Boolean(touched.donationDescription) && Boolean(errors.donationDescription)}
-                                        helperText={touched.donationDescription && errors.donationDescription}
+                                        value={values.noOfAttendees}
+                                        name="noOfAttendees"
+                                        error={Boolean(touched.noOfAttendees) && Boolean(errors.noOfAttendees)}
+                                        helperText={touched.noOfAttendees && errors.noOfAttendees}
+                                        type="number"
                                         sx={{ gridColumn: "span 2" }}
                                     />
-
-                                    <TextField
-                                        label="Location"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.donorLocation}
-                                        name="donorLocation"
-                                        error={Boolean(touched.donorLocation) && Boolean(errors.donorLocation)}
-                                        helperText={touched.donorLocation && errors.donorLocation}
-                                        sx={{ gridColumn: "span 2" }}
-                                    />
-
-                                    <TextField
-                                        label="Additional Details"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.additionalDetails}
-                                        name="additionalDetails"
-                                        error={Boolean(touched.additionalDetails) && Boolean(errors.additionalDetails)}
-                                        helperText={touched.additionalDetails && errors.additionalDetails}
-                                        sx={{ gridColumn: "span 4" }}
-                                    />
-                                    <div>
-
-                                        <DatePicker
-                                            selected={date}
-                                            onBlur={handleBlur}
-                                            value={values.pickupDate}
-                                            name="pickupDate"
-                                            onChange={(date) => setDate(date)}
-                                            className={"date-picker"}
-                                            error={Boolean(touched.pickupDate) && Boolean(errors.pickupDate)}
-                                            helperText={touched.pickupDate && errors.pickupDate}
-                                            placeholderText="Pickup Date"
-                                        />
-                                    </div>
-
-
-
-
 
                                     {/* BUTTONS */}
-                                    <Box >
+                                    <Box>
                                         <Button
                                             fullWidth
                                             type="submit"
@@ -239,7 +237,6 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
                                         >
                                             {"SUBMIT"}
                                         </Button>
-
                                     </Box>
                                 </Box>
                             </form>
@@ -251,15 +248,4 @@ function PopupDonate({ isOpen, onClose, onSubmit, userId }) {
     );
 }
 
-export default PopupDonate;
-
-
-
-
-
-
-
-
-
-
-
+export default PopupEvent;

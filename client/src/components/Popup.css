@@ -111,11 +111,14 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: none;
-
-    
-
-
-
+  }
+  .date-event {
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: none;
+    margin-top: 7%;
   }
 
   .popup-overlay {
