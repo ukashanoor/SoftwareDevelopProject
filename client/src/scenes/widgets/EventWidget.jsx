@@ -10,18 +10,17 @@ import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { setDonations } from "state";
+import { setEvents } from "state";
 import { useNavigate } from "react-router-dom";
-import PopupDonate from "components/PopupDonate";
-import PopupRequest from "components/PopupRequest";
+import PopupEvent from "components/PopupEvent";
+import DatePicker from 'react-datepicker'
 // import ListOfDonations from "components/ListOfDonations";
 
-
-
-const DonationWidget = ({ userId, _id }) => {
+const EventWidget = ({ userId, _id }) => {
     const [user, setUser] = useState(null);
+    const [date, setDate] = useState(null);
     const dispatch = useDispatch();
-    let donations = useSelector((state) => state.donations);
+    let events = useSelector((state) => state.events);
     const { palette } = useTheme();
     const navigate = useNavigate();
     const token = useSelector((state) => state.token);
@@ -30,19 +29,28 @@ const DonationWidget = ({ userId, _id }) => {
     const medium = palette.neutral.medium;
     const main = palette.neutral.main;
 
-    const [buttonPopupDonate, setButtonPopupDonate] = useState(false);
-    const [buttonPopupRequest, setButtonPopupRequest] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const getDonation = async (flag) => {
-        const response = await fetch("http://localhost:3001/donations", {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1; // Months are zero-based, so we add 1
+        const year = date.getFullYear();
+      
+        return `${day}/${month}/${year}`;
+      };
+
+    const getEvents = async (flag) => {
+        const response = await fetch("http://localhost:3001/events", {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
-        dispatch(setDonations({ donations: data }));
-        if(flag){
-            donations = data;
+        dispatch(setEvents({ events: data }));
+        if (flag) {
+            events = data;
         }
 
     };
@@ -62,13 +70,14 @@ const DonationWidget = ({ userId, _id }) => {
     };
 
     useEffect(() => {
-        getDonation(false);
+        getEvents(false);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    if (!donations) {
-        getDonation(true);
-        return donations;
+    if (!events) {
+        getEvents(true);
+        return events;
     }
+
 
     return (
         <>
@@ -92,7 +101,7 @@ const DonationWidget = ({ userId, _id }) => {
                                     },
                                 }}
                             >
-                                Donate Zone
+                                Event
                             </Typography>
                         </Box>
                     </FlexBetween>
@@ -100,35 +109,27 @@ const DonationWidget = ({ userId, _id }) => {
 
                 {/* SECOND ROW */}
                 <Box display="flex" justifyContent="space-between">
+                    <DatePicker
+                        className="date-event"
+                        selected={selectedDate}
+                        onChange={(date) => setSelectedDate(date)}
+                        placeholderText="Pickup Date"
+
+                    />
+                    <PopupEvent isOpen={isModalOpen} onClose={closeModal} onSubmit={handleFormSubmit} userId={userId} />
                     <Button variant="contained"
                         //   disabled={!post}
-
                         onClick={openModal}
                         sx={{
                             color: palette.background.alt,
                             backgroundColor: palette.primary.main,
                             borderRadius: "1rem",
-                            mt: '10px',
-                            mb: '15px',
-                            marginRight: '0.5rem'
-                        }}
-                    >
-                        Donate
-                    </Button>
-                    <PopupDonate isOpen={isModalOpen} onClose={closeModal} onSubmit={handleFormSubmit} userId={userId} />
-                    <Button variant="contained"
-                        //   disabled={!post}
-                        onClick={() => setButtonPopupRequest(true)}
-                        sx={{
-                            color: palette.background.alt,
-                            backgroundColor: palette.primary.main,
-                            borderRadius: "1rem",
-                            mr: '100px',
+                            mr: '50px',
                             mt: '10px',
                             mb: '15px'
                         }}
                     >
-                        Request
+                        Create
                     </Button>
                 </Box>
 
@@ -138,43 +139,42 @@ const DonationWidget = ({ userId, _id }) => {
                     borderRadius="1rem"
                     bgcolor={light}
                     display="flex"
-                    // marginTop="1rem"
                     width="100%"
-                    height="250px"
+                    height="200px"
                     overflow="auto" // Add this CSS property to make the box scrollable
-
-
                 >
 
-                    <table display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={light} >
+                    <table display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="1rem" bgcolor={light}>
                         <thead>
-                            <tr>
-                                <th>Full Name</th>
-                                <th>Location</th>
-                                <th>Description</th>
+                            <tr >
+                                <th >Event</th>
+                                <th >Location</th>
+                                <th >Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {donations.map(
+                            {events.map(
                                 ({
-                                    _id,
                                     userId,
-                                    donorFullName,
-                                    donorLocation,
-                                    donorEmail,
+                                    eventName,
+                                    eventLocation,
+                                    eventDate,
+                                    eventDescription,
+                                    organizerName,
+                                    organizerPhone,
                                     donationCategory,
                                     donationType,
-                                    donationDescription,
-                                    pickupRequired,
-                                    pickupDate,
-                                    additionalDetails,
-                                }) => (
-                                    <tr key={_id}>
-                                        <td style={{ textAlign: "center" }}>{donorFullName}</td>
-                                        <td style={{ textAlign: "center" }}>{donorLocation}</td>
-                                        <td style={{ textAlign: "center" }}>{donationDescription}</td>
-                                    </tr>
-                                )
+                                    noOfAttendees,
+                                }) => {
+                                    const formattedDate = formatDate(eventDate);
+                                return (
+                                  <tr key={userId}>
+                                    <td style={{textAlign: "center" }}>{eventName}</td>
+                                    <td style={{textAlign: "center" }}>{eventLocation}</td>
+                                    <td style={{textAlign: "center" }}>{formattedDate}</td>
+                                  </tr>
+                                );
+                              }
                             )}
                         </tbody>
                     </table>
@@ -183,13 +183,6 @@ const DonationWidget = ({ userId, _id }) => {
                 </Box>
 
 
-                {/* Popup donate button */}
-                <PopupDonate trigger={buttonPopupDonate} setTrigger={setButtonPopupDonate}>
-                </PopupDonate>
-
-                {/* Popup Request button */}
-                <PopupRequest trigger={buttonPopupRequest} setTrigger={setButtonPopupRequest}>
-                </PopupRequest>
 
             </WidgetWrapper>
 
@@ -199,6 +192,6 @@ const DonationWidget = ({ userId, _id }) => {
     );
 };
 
-export default DonationWidget;
+export default EventWidget;
 
 

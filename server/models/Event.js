@@ -36,7 +36,7 @@ const eventSchema = mongoose.Schema(
         type: String,
         required: true
     },
-    noOfAttendees: String,
+    noOfAttendees: Number,
     paymentMethod: String
   },
   { timestamps: true }
