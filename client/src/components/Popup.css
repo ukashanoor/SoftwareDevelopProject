@@ -10,6 +10,12 @@
     margin: auto;
 }
 
+.text{
+ text-align: center;
+ color: green;
+}
+
+
 .wrapper > P,
 .wrapper > h1 {
     margin: 1.5rem 0;
