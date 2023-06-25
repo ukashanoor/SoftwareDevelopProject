@@ -142,14 +142,16 @@ const EventWidget = ({ userId, _id }) => {
                     width="100%"
                     height="200px"
                     overflow="auto" // Add this CSS property to make the box scrollable
-                >
+                    justifyContent="center" // Center the table horizontally
+                   >
+                    
 
                     <table display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="1rem" bgcolor={light}>
                         <thead>
                             <tr >
-                                <th >Event</th>
-                                <th >Location</th>
-                                <th >Date</th>
+                                <th style={{textAlign: "center" , padding:"0.5rem"}} >Event</th>
+                                <th style={{textAlign: "center" , padding:"0.5rem"}}>Location</th>
+                                <th style={{textAlign: "center" , padding:"0.5rem"}}>Date</th>
                             </tr>
                         </thead>
                         <tbody>
