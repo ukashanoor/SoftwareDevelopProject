@@ -250,7 +250,7 @@ const Form = () => {
               color="primary"
             />
             <Typography component="span">
-              I accept the terms and conditions
+            {isLogin ? "keep me logged in" : "I accept the terms and conditions"}
             </Typography>
           </Box>
 
