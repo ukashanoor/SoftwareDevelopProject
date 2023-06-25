@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Event from "../models/Event.js";
+import emailHelper from "../emailHelper.js";
 
 
 /* CREATE */
@@ -31,7 +32,12 @@ export const createEvent = async (req, res) => {
         noOfAttendees: noOfAttendees
       });
       await newEvent.save();
-  
+      console.log("hi");
+      await emailHelper(
+        `New Event Created: ${eventName}`,
+        `Hi ${user.firstName}`,
+        "ukashanoor@gmail.com"
+      );
       const events = await Event.find();
       res.status(201).json(events);
     } catch (err) {
