@@ -142,16 +142,17 @@ const DonationWidget = ({ userId, _id }) => {
                     width="100%"
                     height="250px"
                     overflow="auto" // Add this CSS property to make the box scrollable
+                    justifyContent="center" // Center the table horizontally
 
 
                 >
 
-                    <table display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem" bgcolor={light} >
-                        <thead>
-                            <tr>
-                                <th>Full Name</th>
-                                <th>Location</th>
-                                <th>Description</th>
+                    <table display="flex" borderRadius="3rem" alignItems="center" gap="2.5rem" mb="0.5rem"  class="table-container">
+                        <thead >
+                            <tr >
+                                <th style={{ textAlign: "center" }}>Name</th>
+                                <th style={{ textAlign: "center" }}>Location</th>
+                                <th style={{ textAlign: "center" }}>Description</th>
                             </tr>
                         </thead>
                         <tbody>
