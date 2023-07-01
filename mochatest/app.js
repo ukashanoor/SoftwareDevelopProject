@@ -8,5 +8,10 @@ addNumber: function(value1, value2){
 },
 addValues: function(){
     return 'values';
-}
+},
+
+
+
+
+
 }
