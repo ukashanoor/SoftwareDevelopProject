@@ -40,38 +40,24 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   return (
     <> 
       <div> My name is Folk</div>
-      {posts.map(
-        ({
-          _id,
-          userId,
-          firstName,
-          lastName,
-          description,
-          location,
-          picturePath,
-          audioPath, // add audioPath in backend
-          filePath, // add attachmentPath in backend
-          userPicturePath,
-          likes,
-          comments,
-        }) => (
-          <PostWidget
-            key={_id}
-            postId={_id}
-            postUserId={userId}
-            name={`${firstName} ${lastName}`}
-            description={description}
-            location={location}
-            picturePath={picturePath}
-            audioPath={audioPath} // add audioPath in backend
-            filePath={filePath} // add attachmentPath in backend
-            userPicturePath={userPicturePath}
-            likes={likes}
-            comments={comments}
-            data-testid="post-widget" // Add this attribute
-          />
-        )
-      )}
+      {posts && posts.map(({ _id, userId, firstName, lastName, description, location, picturePath, audioPath, filePath, userPicturePath, likes, comments }) => (
+  <PostWidget
+    key={_id}
+    postId={_id}
+    postUserId={userId}
+    name={`${firstName} ${lastName}`}
+    description={description}
+    location={location}
+    picturePath={picturePath}
+    audioPath={audioPath}
+    filePath={filePath}
+    userPicturePath={userPicturePath}
+    likes={likes}
+    comments={comments}
+    data-testid="post-widget"
+  />
+))}
+
     </>
   );
 };
