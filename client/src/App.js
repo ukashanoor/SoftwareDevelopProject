@@ -29,6 +29,7 @@ function App() {
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
           </Routes>
+          <div> My name is Folk</div>
         </ThemeProvider>
       </BrowserRouter>
     </div>

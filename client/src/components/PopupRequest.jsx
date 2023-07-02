@@ -16,9 +16,6 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
 import Dropzone from "react-dropzone";
 
 const requestSchema = yup.object().shape({
@@ -65,7 +62,6 @@ const initialValuesRequest = {
     pickupDate: "",
     additionalDetails: "",
 };
-
 
 function PopupRequest(props) {
 
@@ -131,11 +127,6 @@ function PopupRequest(props) {
                             resetForm,
                         }) => (
                             <form onSubmit={handleSubmit}>
-                                <h1 className="text-center text-success py-2">Donation Request Form</h1>
-
-                                <p className='py-3'>Fill out the donation request form below with all information. 
-                                    Your donation request must be submitted at least four(4) weeks before your event date.
-                                    We will contact you as soon as we have evaluated your request.</p>
                                 <Box
                                     display="grid"
                                     gap="30px"
@@ -146,20 +137,66 @@ function PopupRequest(props) {
                                 >
                                    
                                         <>
+                                            <h1>Request</h1>
+
+                                            <Box
+                                                gridColumn="span 4"
+                                                border={`1px solid ${palette.neutral.medium}`}
+                                                borderRadius="5px"
+                                                p="1rem"
+                                            >
+                                                <Dropzone
+                                                    acceptedFiles=".jpg,.jpeg,.png"
+                                                    multiple={false}
+                                                    onDrop={(acceptedFiles) =>
+                                                        setFieldValue("picture", acceptedFiles[0])
+                                                    }
+                                                >
+                                                    {({ getRootProps, getInputProps }) => (
+                                                        <Box
+                                                            {...getRootProps()}
+                                                            border={`2px dashed ${palette.primary.main}`}
+                                                            p="1rem"
+                                                            sx={{ "&:hover": { cursor: "pointer" } }}
+                                                        >
+                                                            <input {...getInputProps()} />
+                                                            {!values.picture ? (
+                                                                <p>Add Picture Here</p>
+                                                            ) : (
+                                                                <FlexBetween>
+                                                                    <Typography>{values.picture.name}</Typography>
+                                                                    <EditOutlinedIcon />
+                                                                </FlexBetween>
+                                                            )}
+                                                        </Box>
+                                                    )}
+                                                </Dropzone>
+                                            </Box>
 
                                             <TextField
-                                                label="Name of the event"
+                                                label="Pickup Required"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
                                                 value={values.pickupRequired}
                                                 name="pickupRequired"
                                                 error={Boolean(touched.pickupRequired) && Boolean(errors.pickupRequired)}
                                                 helperText={touched.pickupRequired && errors.pickupRequired}
-                                                sx={{ gridColumn: "span 4" }}
+                                                sx={{ gridColumn: "span 2" }}
                                             />
 
                                             <TextField
-                                                label="Event Location"
+                                                label="Location"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.donorLocation}
+                                                name="donorLocation"
+                                                error={Boolean(touched.donorLocation) && Boolean(errors.donorLocation)}
+                                                helperText={touched.donorLocation && errors.donorLocation}
+                                                sx={{ gridColumn: "span 2" }}
+                                            />
+
+                                            <TextField
+                                                label="Description"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
                                                 value={values.donationDescription}
@@ -191,7 +228,7 @@ function PopupRequest(props) {
                                                 sx={{ gridColumn: "span 4" }}
                                             />
                                             <TextField
-                                                label="Donation amount requested"
+                                                label="Category"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
                                                 value={values.donationCategory}
@@ -200,10 +237,21 @@ function PopupRequest(props) {
                                                 helperText={touched.donationCategory && errors.donationCategory}
                                                 sx={{ gridColumn: "span 2" }}
                                             />
+                                            <TextField
+                                                label="Type"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.donationType}
+                                                name="donationType"
+                                                error={Boolean(touched.donationType) && Boolean(errors.donationType)}
+                                                helperText={touched.donationType && errors.donationType}
+                                                sx={{ gridColumn: "span 2" }}
+                                            />
+
 
 
                                             <TextField
-                                                label="Description"
+                                                label="Additional Details"
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
                                                 value={values.additionalDetails}
@@ -213,8 +261,6 @@ function PopupRequest(props) {
                                                 sx={{ gridColumn: "span 4" }}
                                             />
 
-                                            
-
                                         </>
 
                           
@@ -222,8 +268,18 @@ function PopupRequest(props) {
 
                                     {/* BUTTONS */}
                                     <Box>
-                                        <Button type="submit" 
-                                                variant="contained">Submit
+                                        <Button
+                                            fullWidth
+                                            type="submit"
+                                            sx={{
+                                                m: "2rem 0",
+                                                p: "1rem",
+                                                backgroundColor: palette.primary.main,
+                                                color: palette.background.alt,
+                                                "&:hover": { color: palette.primary.main },
+                                            }}
+                                        >
+                                            {"SUBMIT"}
                                         </Button>
                                         <Typography
                                             onClick={() => {

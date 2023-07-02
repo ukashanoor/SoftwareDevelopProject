@@ -38,7 +38,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <>
+    <> 
+      <div> My name is Folk</div>
       {posts.map(
         ({
           _id,
@@ -67,6 +68,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}
+            data-testid="post-widget" // Add this attribute
           />
         )
       )}
