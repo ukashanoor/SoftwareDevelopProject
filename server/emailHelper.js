@@ -7,8 +7,8 @@ const sendEmail = async (subject,body,to,bcc,cc) => {
         secure: false, 
         port: 587,
         auth: {
-          user: 'support@bigyellowfish.io',
-          pass: 'EIGHTEEN@18'
+          user: '',
+          pass: ''
         }
       });
       
