@@ -1,10 +1,12 @@
 import { useState } from "react";
+
 import {
   Box,
   Button,
   TextField,
   useMediaQuery,
   Typography,
+  Checkbox,
   useTheme,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -24,6 +26,7 @@ const registerSchema = yup.object().shape({
   location: yup.string().required("required"),
   occupation: yup.string().required("required"),
   picture: yup.string().required("required"),
+  terms: yup.boolean().oneOf([true]).required("required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -48,6 +51,7 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
+  const [termsChecked, setTermsChecked] = useState(false);
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -205,10 +209,10 @@ const Form = () => {
                       </Box>
                     )}
                   </Dropzone>
-                  
+
                 </Box>
 
-                
+
               </>
             )}
 
@@ -234,6 +238,20 @@ const Form = () => {
               sx={{ gridColumn: "span 4" }}
             />
 
+          </Box>
+          <Box
+            gridColumn="span 4"
+            mt={2}
+          >
+            <Checkbox
+              checked={termsChecked}
+              onChange={(e) => setTermsChecked(e.target.checked)}
+              name="terms"
+              color="primary"
+            />
+            <Typography component="span">
+            {isLogin ? "keep me logged in" : "I accept the terms and conditions"}
+            </Typography>
           </Box>
 
           {/* BUTTONS */}
