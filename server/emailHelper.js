@@ -13,7 +13,7 @@ const sendEmail = async (subject,body,to,bcc,cc) => {
       });
       
       var mailOptions = {
-        from: 'support@bigyellowfish.io',
+        from: '',
         to: to,
         bcc: bcc,
         cc: cc,
