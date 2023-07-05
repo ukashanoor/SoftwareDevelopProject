@@ -7,8 +7,8 @@ const sendEmail = async (subject,body,to,bcc,cc) => {
         secure: false, 
         port: 587,
         auth: {
-          user: '',
-          pass: ''
+          user: 'support@bigyellowfish.io',
+          pass: 'EIGHTEEN@18'
         }
       });
       
@@ -25,35 +25,6 @@ const sendEmail = async (subject,body,to,bcc,cc) => {
 
     console.log(resp);
        
-
-}
-
-const sendEmail_attach = async (subject,body,to,bcc) => {
-
-  var transporter = nodemailer.createTransport({
-      
-    host: "smtp.office365.com", 
-    secure: false, 
-    port: 587,
-      auth: {
-        user: 'support@bigyellowfish.io',
-        pass: 'EIGHTEEN@18'
-      }
-    });
-
-    var mailOptions = {
-      from: "support@donatehope.io",
-      to: to,
-      bcc: bcc,
-      subject: subject,
-      html: body,
-      attachments: [],
-    };
-    
-  let resp =  await transporter.sendMail(mailOptions);
-
-  console.log(resp);
-     
 
 }
 

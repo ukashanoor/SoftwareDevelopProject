@@ -34,8 +34,8 @@ export const createEvent = async (req, res) => {
       await newEvent.save();
       console.log("hi");
       await emailHelper(
-        `New Event Created: ${eventName}`,
-        `Hi ${user.firstName}`,
+        `Event Created: ${eventName}`,
+        `Dear ${user.firstName}<br><br>We are excited to inform you that an event has been created on our website.<br><br>Event Title: ${eventName}<br>Date: ${eventDate}<br>Location: ${eventLocation}<br>Description: ${eventDescription}<br><br>We hope you can join us for this exciting event. Feel free to invite your friends and family!<br><br>If you have any questions or need further information, please don't hesitate to contact us. We look forward to seeing you there!<br><br>Best regards,<br>DonateHope`,
         "ukashanoor@gmail.com"
       );
       const events = await Event.find();

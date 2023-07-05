@@ -9,7 +9,7 @@ const AdvertWidget = () => {
   const medium = palette.neutral.medium;
   
   // Generate a random number between 1 and 5
-  const randomNumber = Math.floor(Math.random() * 5) + 1;
+  const randomNumber = Math.floor(Math.random() * 4) + 1;
 
   return (
     <WidgetWrapper>
